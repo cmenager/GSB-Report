@@ -80,7 +80,7 @@ Class VisitorDAO extends DAO implements UserProviderInterface {
         $visitor->setPassword($row['password']);
         $visitor->setSalt($row['salt']);
         $visitor->setRole($row['role']);
-        $visitor->setType($row['visitor_type'])
+        $visitor->setType($row['visitor_type']);
 
 
 
