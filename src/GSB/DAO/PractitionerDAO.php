@@ -4,8 +4,19 @@ namespace GSB\DAO;
 
 use GSB\Domain\Practitioner;
 
-class PractitionerDAO extends DAO
-{
+class PractitionerDAO extends DAO {
+
+    
+     /**
+     * @var \GSB\DAO\PractitionerTypeDAO
+     */
+    private $practitionerTypeDAO;
+
+    public function setPractitionerTypeDAO($practitionerTypeDAO) {
+        $this->practitionerTypeDAO = $practitionerTypeDAO;
+    }
+    
+    
     /**
      * Returns the list of all practitioners, sorted by name practitioner.
      *
@@ -14,7 +25,7 @@ class PractitionerDAO extends DAO
     public function findAll() {
         $sql = "select * from practitioner order by practitioner_name";
         $result = $this->getDb()->fetchAll($sql);
-        
+
         // Converts query result to an array of domain objects
         $practitioners = array();
         foreach ($result as $row) {
@@ -23,7 +34,6 @@ class PractitionerDAO extends DAO
         }
         return $practitioners;
     }
-
 
     /**
      * Returns the practitioners matching a given id.
@@ -50,16 +60,23 @@ class PractitionerDAO extends DAO
      * @return \GSB\Domain\Practitioner
      */
     protected function buildDomainObject($row) {
+        $practitionerTypeId = $row['practitioner_type_id'];
+        $practitionerType = $this->practitionerTypeDAO->find($practitionerTypeId);
+
         $practitioner = new Practitioner();
         $practitioner->setId($row['practitioner_id']);
-        $practitioner->setType($row['practitioner_type_id']);
+        
+        $practitioner->setType($practitionerType);
+        
         $practitioner->setName($row['practitioner_name']);
         $practitioner->setFirstName($row['practitioner_first_name']);
-        $practitioner->setAdress($row['practitioner_address']);
-        $practitioner->setCode($row['practitioner_zip_code']);
+        $practitioner->setAddress($row['practitioner_address']);
+        $practitioner->setZipCode($row['practitioner_zip_code']);
         $practitioner->setCity($row['practitioner_city']);
         $practitioner->setNotorietyCoef($row['notoriety_coefficient']);
+
+
         return $practitioner;
     }
-    
+
 }

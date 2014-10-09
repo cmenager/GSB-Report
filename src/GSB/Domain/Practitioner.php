@@ -14,7 +14,7 @@ class Practitioner
     /**
      * type Practitioner.
      *
-     * @var string
+     * @var \GSB\Domaine\PractitionerType
      */
     private $type_practitioner;
 
@@ -37,7 +37,7 @@ class Practitioner
      *
      * @var string
      */
-    private $adress_practitioner;
+    private $address_practitioner;
 
     /**
      * code practitioner.
@@ -94,19 +94,19 @@ class Practitioner
         $this->firstName = $first_name_practitioner;
     }
 ////////////////////////////////////////////////////////////////////////////////
-    public function getAdress() {
+    public function getAddress() {
         return $this->adress;
     }
 
-    public function setAdress($adress_practitioner) {
+    public function setAddress($adress_practitioner) {
         $this->adress = $adress_practitioner;
     }
 ////////////////////////////////////////////////////////////////////////////////
-    public function getCode() {
+    public function getZipCode() {
         return $this->CodePractitioner;
     }
 
-    public function setCode($code_practitioner) {
+    public function setZipCode($code_practitioner) {
         $this->CodePractitioner = $code_practitioner;
     }
 ////////////////////////////////////////////////////////////////////////////////

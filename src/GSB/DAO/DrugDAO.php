@@ -90,6 +90,8 @@ class DrugDAO extends DAO
         $drug->setContraindication($row['contraindication']);
         $drug->setSamplePrice($row['sample_price']);
         $drug->setFamily($family);
+        
+        
         return $drug;
     }
 }
