@@ -7,8 +7,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use GSB\Domain\Visitor;
 
-Class VisitorDAO extends DAO implements UserProviderInterface {
+class VisitorDAO extends DAO implements UserProviderInterface {
 
     /**
      * Returns a user matching the supplied id.
@@ -30,7 +31,7 @@ Class VisitorDAO extends DAO implements UserProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function loadUserByVisitor($username) {
+    public function loadUserByUsername($username) {
         $sql = "select * from visitor where visitor_last_name=?";
         $row = $this->getDb()->fetchAssoc($sql, array($username));
 
