@@ -2,7 +2,9 @@
 
 namespace GSB\Domain;
 
-Class Visitor {
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class Visitor implements UserInterface {
 
     /**
      * Visitor id.
@@ -12,95 +14,74 @@ Class Visitor {
     private $id;
 
     /**
-     * Visitor id sector.
-     *
-     * @var integer
-     */
-    private $id_sector;
-
-    /**
-     * Visitor id labo.
-     *
-     * @var integer
-     */
-    private $id_labo;
-
-    /**
-     * Visitor name last.
+     * Last name.
      *
      * @var string
      */
     private $lastName;
 
     /**
-     * Visitor first name.
+     * First name.
      *
      * @var string
      */
     private $firstName;
 
     /**
-     * Visitor address.
+     * Address.
      *
      * @var string
      */
     private $address;
 
     /**
-     * Visitor code.
+     * Zip Code.
      *
-     * @var int
+     * @var string
      */
     private $zipCode;
-    
+
     /**
-     * Visitor city.
+     * City.
      *
      * @var string
      */
     private $city;
 
     /**
-     * Visitor date.
+     * Hiring date.
      *
-     * @var date
+     * @var DateTime
      */
-    private $date;
+    private $hiringDate;
 
     /**
-     * Visitor user.
+     * User name (used for authentication).
      *
      * @var string
      */
-    private $user;
+    private $username;
 
     /**
-     * Visitor password.
+     * Password.
      *
      * @var string
      */
     private $password;
 
     /**
-     * Visitor salt.
+     * Salt that was originally used to encode the password.
      *
      * @var string
      */
     private $salt;
 
     /**
-     * Visitor role.
+     * Role.
      *
      * @var string
      */
     private $role;
-
-    /**
-     * Visitor type.
-     *
-     * @var string
-     */
-    private $type;
 
     public function getId() {
         return $this->id;
@@ -110,78 +91,128 @@ Class Visitor {
         $this->id = $id;
     }
 
-    public function getId_sector() {
-        return $this->id_sector;
-    }
-
-    public function setId_sector($id_sector) {
-        $this->id_sector = $id_sector;
-    }
-
-    public function getId_labo() {
-        return $this->id_labo;
-    }
-
-    public function setId_labo($id_labo) {
-        $this->id_labo = $id_labo;
-    }
-
-    public function getLastName() {
-        return $this->lastName;
-    }
-
+    /**
+     * Set last name.
+     *
+     * @param string $lastName
+     */
     public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
+    /**
+     * Returns last name.
+     *
+     * @return string
+     */
+    public function getLastName() {
+        return $this->lastName;
     }
 
+    /**
+     * Set first name.
+     *
+     * @param string $firstName
+     */
     public function setFirstName($firstName) {
         $this->firstName = $firstName;
     }
 
-    public function getAddress() {
-        return $this->address;
+    /**
+     * Returns first name.
+     *
+     * @return string
+     */
+    public function getFirstName() {
+        return $this->firstName;
     }
 
+    /**
+     * Set address.
+     *
+     * @param string $address
+     */
     public function setAddress($address) {
         $this->address = $address;
     }
 
+    /**
+     * Returns address.
+     *
+     * @return string
+     */
+    public function getAddress() {
+        return $this->address;
+    }
+
+    /**
+     * Set zip code.
+     *
+     * @param string $zipCode
+     */
+    public function setZipCode($zipCode) {
+        $this->zipCode = $zipCode;
+    }
+
+    /**
+     * Returns zip code.
+     *
+     * @return string
+     */
     public function getZipCode() {
         return $this->zipCode;
     }
 
-    public function setZipCode($zipCode) {
-        $this->zipCode = $zipCode;
-    }
-    
-    public function getCity(){
-        return $this->city;
-    }
-    
-    public function setCity($city){
+    /**
+     * Set city.
+     *
+     * @param string $city
+     */
+    public function setCity($city) {
         $this->city = $city;
     }
 
-    public function getDate() {
-        return $this->date;
+    /**
+     * Returns city.
+     *
+     * @return string
+     */
+    public function getCity() {
+        return $this->city;
     }
 
-    public function setDate(date $date) {
-        $this->date = $date;
+    /**
+     * Set hiring date.
+     *
+     * @param DateTime $hiringDate
+     */
+    public function setHiringDate($hiringDate) {
+        $this->hiringDate = $hiringDate;
     }
 
-    public function getUser() {
-        return $this->user;
+    /**
+     * Returns hiring date.
+     *
+     * @return DateTime
+     */
+    public function getHiringDate() {
+        return $this->hiringDate;
     }
 
-    public function setUser($user) {
-        $this->user = $user;
+    /**
+     * @inheritDoc
+     */
+    public function getUsername() {
+        return $this->username;
     }
 
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPassword() {
         return $this->password;
     }
@@ -190,6 +221,9 @@ Class Visitor {
         $this->password = $password;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSalt() {
         return $this->salt;
     }
@@ -206,20 +240,18 @@ Class Visitor {
         $this->role = $role;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getRoles() {
         return array($this->getRole());
     }
 
-    public function getType() {
-        return $this->type;
-    }
-
-    public function setType($type) {
-        $this->type = $type;
-    }
-
+    /**
+     * @inheritDoc
+     */
     public function eraseCredentials() {
-        // Nothing to do here
+// Nothing to do here
     }
 
 }

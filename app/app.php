@@ -13,32 +13,8 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
-// Register services.
-$app['dao.family'] = $app->share(function ($app) {
-    return new GSB\DAO\FamilyDAO($app['db']);
-});
-$app['dao.drug'] = $app->share(function ($app) {
-    $drugDAO = new GSB\DAO\DrugDAO($app['db']);
-    $drugDAO->setFamilyDAO($app['dao.family']);
-    return $drugDAO;
-});
-
-
-
-
-$app['dao.practitionertype'] = $app->share(function ($app) {
-    return new GSB\DAO\PractitionerTypeDAO($app['db']);
-});
-$app['dao.practitioner'] = $app->share(function ($app) {
-    $practitionerDAO = new GSB\DAO\PractitionerDAO($app['db']);
-    $practitionerDAO->setPractitionerTypeDAO($app['dao.practitionertype']);
-    return $practitionerDAO;
-});
-
-$app['dao.visitor'] = $app->share(function ($app) {
-    return new GSB\DAO\VisitorDAO($app['db']);
-});
-
+$app->register(new Silex\Provider\SessionServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'login' => array(
@@ -55,3 +31,25 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         ),
     ),
 ));
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider());
+// Register services.
+$app['dao.family'] = $app->share(function ($app) {
+    return new GSB\DAO\FamilyDAO($app['db']);
+});
+$app['dao.drug'] = $app->share(function ($app) {
+    $drugDAO = new GSB\DAO\DrugDAO($app['db']);
+    $drugDAO->setFamilyDAO($app['dao.family']);
+    return $drugDAO;
+});
+$app['dao.practitionertype'] = $app->share(function ($app) {
+    return new GSB\DAO\PractitionerTypeDAO($app['db']);
+});
+$app['dao.practitioner'] = $app->share(function ($app) {
+    $practitionerDAO = new GSB\DAO\PractitionerDAO($app['db']);
+    $practitionerDAO->setPractitionerTypeDAO($app['dao.practitionertype']);
+    return $practitionerDAO;
+});
+$app['dao.visitor'] = $app->share(function ($app) {
+    return new GSB\DAO\VisitorDAO($app['db']);
+});
