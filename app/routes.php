@@ -7,6 +7,8 @@ use GSB\Form\Type\VisitorType;
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig');
 });
+
+
 // Details for a drug
 $app->get('/drugs/{id}', function($id) use ($app) {
     $drug = $app['dao.drug']->find($id);
@@ -28,6 +30,8 @@ $app->post('/drugs/results/', function(Request $request) use ($app) {
     $drugs = $app['dao.drug']->findAllByFamily($familyId);
     return $app['twig']->render('drugs_results.html.twig', array('drugs' => $drugs));
 });
+
+
 // Details for a practitioner
 $app->get('/practitioners/{id}', function($id) use ($app) {
     $practitioner = $app['dao.practitioner']->find($id);
@@ -57,6 +61,8 @@ $app->post('/practitioners/results/', function(Request $request) use ($app) {
     }
     return $app['twig']->render('practitioners_results.html.twig', array('practitioners' => $practitioners));
 });
+
+
 // Login form
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
@@ -64,6 +70,8 @@ $app->get('/login', function(Request $request) use ($app) {
                 'last_username' => $app['session']->get('_security.last_username'),
     ));
 })->bind('login'); // named route so that path('login') works in Twig templates
+//
+//
 // Personal info
 $app->match('/me', function(Request $request) use ($app) {
     $visitor = $app['security']->getToken()->getUser();
@@ -82,4 +90,16 @@ $app->match('/me', function(Request $request) use ($app) {
     }
     $visitorFormView = $visitorForm->createView();
     return $app['twig']->render('visitor.html.twig', array('visitorForm' => $visitorFormView));
+});
+
+
+// Details for a reports
+$app->get('/reports/{id}', function($id) use ($app) {
+    $report = $app['dao.report']->find($id);
+    return $app['twig']->render('report.html.twig', array('report' => $report));
+});
+// List of all reports
+$app->get('/reports/', function() use ($app) {
+    $reports = $app['dao.report']->findAll();
+    return $app['twig']->render('reports.html.twig', array('reports' => $reports));
 });

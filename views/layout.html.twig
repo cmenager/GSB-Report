@@ -36,7 +36,15 @@
                                     <li><a href="/practitioners/search/">Rechercher</a></li>
                                 </ul>
                             </li>
+                            <li class="dropdown {% if reportMenu is defined %}active{% endif %}">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Rapport de visite <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/report/">Consulter</a></li>
+                                    <li><a href="/report/add/">Ajouter</a></li>
+                                </ul>
+                            </li>
                         </ul>
+                                
                         <ul class="nav navbar-nav navbar-right">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li class="dropdown">
