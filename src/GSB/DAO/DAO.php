@@ -37,3 +37,5 @@ abstract class DAO
      */
     protected abstract function buildDomainObject($row);
 }
+
+/*test*/
