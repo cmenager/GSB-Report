@@ -94,12 +94,12 @@ $app->match('/me', function(Request $request) use ($app) {
 
 
 // Details for a reports
-$app->get('/reports/{id}', function($id) use ($app) {
-    $report = $app['dao.report']->find($id);
-    return $app['twig']->render('report.html.twig', array('report' => $report));
+$app->get('/visitreports/{id}', function($id) use ($app) {
+    $report = $app['dao.visitreport']->find($id);
+    return $app['twig']->render('visit_report.html.twig', array('report' => $report));
 });
 // List of all reports
-$app->get('/reports/', function() use ($app) {
-    $reports = $app['dao.report']->findAll();
-    return $app['twig']->render('reports.html.twig', array('reports' => $reports));
+$app->get('/visitreports/', function() use ($app) {
+    $reports = $app['dao.visitreport']->findAll();
+    return $app['twig']->render('visit_reports.html.twig', array('reports' => $reports));
 });
